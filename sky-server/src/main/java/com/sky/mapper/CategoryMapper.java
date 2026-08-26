@@ -9,8 +9,10 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.github.pagehelper.Page;
+import com.sky.annotation.AutoFill;
 import com.sky.dto.CategoryPageQueryDTO;
 import com.sky.entity.Category;
+import com.sky.enumeration.OperationType;
 
 /**
  * 分类管理mapper接口
@@ -38,12 +40,14 @@ public interface CategoryMapper {
 	 */
 	@Insert("insert into category (id, type, name, sort, status, create_time, update_time, create_user, update_user) "
 			+ "values (seq_category.nextval, #{type}, #{name}, #{sort}, #{status}, #{createTime}, #{updateTime}, #{createUser}, #{updateUser})")
+	@AutoFill(OperationType.INSERT)
 	void addCategory(Category category);
 
 	/**
 	 * 修改分类
 	 * @param category
 	 */
+	@AutoFill(OperationType.UPDATE)
 	void updateCategory(Category category);
 
 	/**
