@@ -12,3 +12,10 @@ sky:
     access-key-id: xxxxxxxxxxxx
     access-key-secret: xxxxxxxxxxxx
     bucket-name: sky-mybucket-takeout
+  
+  #配置redis数据源
+  redis: 
+    home: localhost
+    password: 123456
+    port: 6379
+    database: 0
