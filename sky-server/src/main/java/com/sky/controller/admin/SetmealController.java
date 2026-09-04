@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  * @classname SetmealController
  * @version 2026年8月24日 下午11:14:29
  */
-@RestController
+@RestController("AdminSetmealController")
 @RequestMapping("/admin/setmeal")
 @Slf4j
 public class SetmealController {

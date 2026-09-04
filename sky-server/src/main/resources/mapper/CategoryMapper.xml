@@ -16,6 +16,17 @@
 		order by create_time desc
 	</select>
 	
+	<!-- 根据类型查分类 -->
+	<select id="list" resultType="com.sky.entity.Category">
+	    select * from category
+	    <where>
+	        <if test="type != null">
+	            type = #{type}
+	        </if>
+	    </where>
+	    order by sort
+	</select>
+	
 	<!-- 修改分类 -->
 	<update id="updateCategory">
 	    update category

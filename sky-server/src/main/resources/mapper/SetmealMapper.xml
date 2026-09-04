@@ -19,6 +19,23 @@
 		order by create_time desc
 	</select>
 	
+	<!-- 条件查询套餐 -->
+	<select id="list" resultType="com.sky.entity.Setmeal">
+		select * from  setmeal
+		<where>
+			<if test="name != null and name != '' ">
+				and name like '%' || #{name} || '%'
+			</if>
+	        <if test="categoryId != null">
+	            and category_id = #{categoryId}
+	        </if>
+	        <if test="status != null">
+	            and status = #{status}
+	        </if>
+		</where>
+		order by create_time desc
+	</select>
+	
 	<!-- 修改套餐 -->
 	<update id="updateSetmeal">
 	    update setmeal

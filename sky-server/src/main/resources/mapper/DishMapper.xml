@@ -36,5 +36,23 @@
 	        update_user=#{updateUser}
 	    </set>
 	    where id=#{id}
-   	</update>
+	</update>
+	
+	<!-- 条件查询菜品 -->
+	<select id="queryAll" resultType="com.sky.entity.Dish">
+		select * from  dish
+		<where>
+			<if test="name != null and name != '' ">
+				and name like '%' || #{name} || '%'
+			</if>
+	        <if test="categoryId != null">
+	            and category_id = #{categoryId}
+	        </if>
+	        <if test="status != null">
+	            and status = #{status}
+	        </if>
+		</where>
+		order by create_time desc
+	</select>
+	
 </mapper>

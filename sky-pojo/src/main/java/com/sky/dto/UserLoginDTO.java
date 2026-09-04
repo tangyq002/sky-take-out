@@ -1,8 +1,8 @@
 package com.sky.dto;
 
-import lombok.Data;
-
 import java.io.Serializable;
+
+import lombok.Data;
 
 /**
  * C端用户登录
@@ -10,6 +10,7 @@ import java.io.Serializable;
 @Data
 public class UserLoginDTO implements Serializable {
 
+	//微信用户授权码
     private String code;
 
 }

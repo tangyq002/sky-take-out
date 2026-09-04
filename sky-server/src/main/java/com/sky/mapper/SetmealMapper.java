@@ -1,5 +1,7 @@
 package com.sky.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -12,6 +14,7 @@ import com.sky.annotation.AutoFill;
 import com.sky.dto.SetmealPageQueryDTO;
 import com.sky.entity.Setmeal;
 import com.sky.enumeration.OperationType;
+import com.sky.vo.DishItemVO;
 
 /**
  * 套餐mapper接口
@@ -79,5 +82,21 @@ public interface SetmealMapper {
 	@Update("update setmeal set status = #{status}, update_time = #{updateTime}, update_user = #{updateUser} where id = #{id}")
 	@AutoFill(OperationType.UPDATE)
 	void updateStatus(Setmeal setmeal);
+
+	/**
+	 * 条件查询套餐列表
+	 * @param setmeal
+	 * @return
+	 */
+	List<Setmeal> list(Setmeal setmeal);
+
+	/**
+	 * 用户端查询套餐包含的菜品
+	 * @param id
+	 * @return
+	 */
+    @Select("select sd.name, sd.copies, d.image, d.description from setmeal_dish sd join dish d on sd.dish_id = d.id " +
+            "where sd.setmeal_id = #{id}")
+	List<DishItemVO> queryDishesById(Long id);
 
 }

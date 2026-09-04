@@ -100,4 +100,11 @@ public interface DishMapper {
 	@AutoFill(OperationType.UPDATE)
 	void updateStatus(Dish dish);
 
+	/**
+	 * 根据条件查询菜品
+	 * @param dish
+	 * @return
+	 */
+	List<Dish> queryAll(Dish dish);
+
 }

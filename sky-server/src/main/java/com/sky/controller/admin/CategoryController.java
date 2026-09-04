@@ -33,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
  * @classname CategoryController
  * @version 2026年8月18日 下午4:39:01
  */
-@RestController
+@RestController("AdminCategoryController")
 @RequestMapping("/admin/category")
 @Slf4j
 @Api(tags = "分类管理相关接口")

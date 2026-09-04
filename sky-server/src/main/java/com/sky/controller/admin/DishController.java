@@ -34,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
  * @classname DishController
  * @version 2026年8月26日 下午6:42:04
  */
-@RestController
+@RestController("AdminDishController")
 @RequestMapping("/admin/dish")
 @Slf4j
 public class DishController {

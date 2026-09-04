@@ -34,4 +34,6 @@ public interface DishService {
 
 	void updateStatus(Integer status, Long id);
 
+	List<DishVO> queryAll(Dish dish);
+
 }
