@@ -1,8 +1,10 @@
 package com.sky.controller.admin;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +43,9 @@ public class DishController {
 	@Autowired
     private DishService dishService;
 	
+	@Autowired
+	private RedisTemplate redisTemplate;
+	
 	/**
 	 * 菜品分页查询
 	 * @param dishPageQueryDTO
@@ -67,6 +72,8 @@ public class DishController {
 		log.info("新增菜品内容：{}",dishDTO);
 		//新增菜品
 		dishService.addDish(dishDTO);
+		String key = "dish_" + dishDTO.getCategoryId();
+		clearRedis(key);
 		return Result.success();
 	}
 
@@ -80,6 +87,7 @@ public class DishController {
 	public Result update(@RequestBody DishDTO dishDTO) {
 		//修改菜品
 		dishService.updateDish(dishDTO);
+		clearRedis("dish_*");
 		return Result.success();
 	}
 	
@@ -94,6 +102,7 @@ public class DishController {
 		log.info("批量删除的菜品：{}", ids);
 		//批量删除
 		dishService.deleteDishByIds(ids);
+		clearRedis("dish_*");
 		return Result.success();
 	}
 	
@@ -134,6 +143,16 @@ public class DishController {
 	public Result updateStatus(@PathVariable("status")Integer status,Long id) {
 		//修改状态
 		dishService.updateStatus(status,id);
+		clearRedis("dish_*");
 		return Result.success();
+	}
+	
+	/**
+	 * 根据条件清除redis缓存
+	 * @param key
+	 */
+	public void clearRedis(String key) {
+		Set keys = redisTemplate.keys(key);
+		redisTemplate.delete(keys);
 	}
 }
