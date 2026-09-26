@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.entity.AddressBook;
 import com.sky.mapper.AddressBookMapper;
@@ -34,7 +35,15 @@ public class AddressBookServiceImp implements AddressBookService{
 		//获取当前用户id
         addressBook.setUserId(BaseContext.getCurrentId());
         //设置为非默认地址
-        addressBook.setIsDefault(0);
+        addressBook.setIsDefault(StatusConstant.DISABLE);
+        
+        //查询用户地址簿列表
+        List<AddressBook> list = addressBookMapper.queryAll(addressBook);
+        //如果为第一次新增地址，设置为默认地址
+        if (list.size() == 0 || list.isEmpty()) {
+        	addressBook.setIsDefault(StatusConstant.ENABLE);
+        	addressBookMapper.update(addressBook);
+		}
         addressBookMapper.add(addressBook);
 	}
 
